@@ -76,6 +76,9 @@ public class Ship {
         return coordinates;
 
     }
+    public int getSegments() {
+        return segments;
+    }
 
     public void paintVertical(GraphicsContext gc) {
         int boatWidth = (int) (30 * 0.8);
