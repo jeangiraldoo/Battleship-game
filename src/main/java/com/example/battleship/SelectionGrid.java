@@ -75,7 +75,7 @@ public class SelectionGrid extends Rectangle {
     public Marker getMarkerAtPosition(Position pos){
         return markers[pos.x][pos.y];
     }
-    public Position getPositionGrid(int mouseX, int mouseY){
+    public Position getPositionInGrid(int mouseX, int mouseY){
         if(!isPositionInside(new Position(mouseX, mouseY))){
             return new Position(-1, -1);
         }
@@ -144,7 +144,7 @@ public class SelectionGrid extends Rectangle {
         }
     }
 
-    private void populateShips(){
+    public void populateShips(){
         ships.clear();
         for(int i = 0; i < BOAT_SIZES.length; i++){
             boolean sideways = rand.nextBoolean();

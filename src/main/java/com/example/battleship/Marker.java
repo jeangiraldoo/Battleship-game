@@ -43,7 +43,7 @@ public class Marker extends Rectangle {
         this.shipAtMarker = ship;
     }
 
-    public Ship getAssociateShip(){
+    public Ship getAssociatedShip(){
         return shipAtMarker;
     }
 
