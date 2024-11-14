@@ -43,7 +43,7 @@ public class GamePanel extends Pane {
         }
 
 
-        //restart();
+        restart();
         System.out.println("Canvas width: " + canvas.getWidth() + ", height: " + canvas.getHeight());
         draw();
 
@@ -95,10 +95,12 @@ public class GamePanel extends Pane {
         placingShipIndex = 0;
         updateShipPlacement(tempPlacingPosition);
         computer.populateShips();
+        System.out.println("enter");
         debugModeActive = false;
         statusPanel.reset();
         gameState = GameState.PlacingShips;
         draw();
+        System.out.println("out");
     }
 
     private void tryPlaceShip(Position mousePosition) {
@@ -188,6 +190,7 @@ public class GamePanel extends Pane {
     }
 
     private void draw() {
+        System.out.println(1);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         computer.paint(gc);

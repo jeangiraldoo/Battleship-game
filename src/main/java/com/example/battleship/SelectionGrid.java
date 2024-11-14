@@ -102,7 +102,7 @@ public class SelectionGrid extends Rectangle {
                 }
             }
         } else {
-            if(gridY + segments > GRID_HEIGHT || gridX < GRID_WIDTH) return false;
+            if(gridY + segments > GRID_HEIGHT || gridX > GRID_WIDTH) return false;
             for(int y = 0; y < segments; y++){
                 if(markers[gridX][gridY+y].isShip()){
                     return false;
@@ -154,6 +154,9 @@ public class SelectionGrid extends Rectangle {
             do {
                 gridX = rand.nextInt(sideways?GRID_WIDTH-BOAT_SIZES[i]:GRID_WIDTH);
                 gridY = rand.nextInt(sideways?GRID_HEIGHT:GRID_HEIGHT-BOAT_SIZES[i]);
+                System.out.println("lol");
+                System.out.println(gridX);
+                System.out.println(gridY);
             } while (!canPlaceShipAt(gridX, gridY, BOAT_SIZES[i], sideways));
             placeShip(gridX, gridY, BOAT_SIZES[i], sideways);
         }
