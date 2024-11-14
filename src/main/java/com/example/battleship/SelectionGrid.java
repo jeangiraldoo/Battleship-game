@@ -9,7 +9,7 @@ import java.util.List;
 public class SelectionGrid extends Rectangle {
 
     public static final int CELL_SIZE = 30;
-    public static final int GRID_WIDTH = 10;
+    public static final int GRID_WIDTH = 10; // width and height are in terms of markers
     public static final int GRID_HEIGHT = 10;
     public static final int[] BOAT_SIZES = {5,4,3,3,2};
     private Marker[][] markers = new Marker[GRID_WIDTH][GRID_HEIGHT];
@@ -25,6 +25,14 @@ public class SelectionGrid extends Rectangle {
         rand = new Random();
         showShips = false;
 
+    }
+
+    private void createMarkerGrid() {
+        for(int x = 0; x < GRID_WIDTH; x++){
+            for(int y = 0; y < GRID_HEIGHT; y++){
+                markers[x][y] = new Marker(position.x + x * CELL_SIZE, position.y + y * CELL_SIZE, CELL_SIZE, CELL_SIZE );
+            }
+        }
     }
 
     public void paint(GraphicsContext gc){
@@ -75,7 +83,7 @@ public class SelectionGrid extends Rectangle {
     public Marker getMarkerAtPosition(Position pos){
         return markers[pos.x][pos.y];
     }
-    public Position getPositionGrid(int mouseX, int mouseY){
+    public Position getPositionInGrid(int mouseX, int mouseY){
         if(!isPositionInside(new Position(mouseX, mouseY))){
             return new Position(-1, -1);
         }
@@ -94,7 +102,7 @@ public class SelectionGrid extends Rectangle {
                 }
             }
         } else {
-            if(gridY + segments > GRID_HEIGHT || gridX < GRID_WIDTH) return false;
+            if(gridY + segments > GRID_HEIGHT || gridX > GRID_WIDTH) return false;
             for(int y = 0; y < segments; y++){
                 if(markers[gridX][gridY+y].isShip()){
                     return false;
@@ -136,15 +144,9 @@ public class SelectionGrid extends Rectangle {
         }
     }
 
-    private void createMarkerGrid() {
-        for(int x = 0; x < GRID_WIDTH; x++){
-            for(int y = 0; y < GRID_HEIGHT; y++){
-                markers[x][y] = new Marker(position.x + x * CELL_SIZE, position.y + y * CELL_SIZE, CELL_SIZE, CELL_SIZE );
-            }
-        }
-    }
 
-    private void populateShips(){
+
+    public void populateShips(){
         ships.clear();
         for(int i = 0; i < BOAT_SIZES.length; i++){
             boolean sideways = rand.nextBoolean();
@@ -152,6 +154,9 @@ public class SelectionGrid extends Rectangle {
             do {
                 gridX = rand.nextInt(sideways?GRID_WIDTH-BOAT_SIZES[i]:GRID_WIDTH);
                 gridY = rand.nextInt(sideways?GRID_HEIGHT:GRID_HEIGHT-BOAT_SIZES[i]);
+                System.out.println("lol");
+                System.out.println(gridX);
+                System.out.println(gridY);
             } while (!canPlaceShipAt(gridX, gridY, BOAT_SIZES[i], sideways));
             placeShip(gridX, gridY, BOAT_SIZES[i], sideways);
         }
