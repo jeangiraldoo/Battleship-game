@@ -9,7 +9,7 @@ import java.util.List;
 public class SelectionGrid extends Rectangle {
 
     public static final int CELL_SIZE = 30;
-    public static final int GRID_WIDTH = 10;
+    public static final int GRID_WIDTH = 10; // width and height are in terms of markers
     public static final int GRID_HEIGHT = 10;
     public static final int[] BOAT_SIZES = {5,4,3,3,2};
     private Marker[][] markers = new Marker[GRID_WIDTH][GRID_HEIGHT];
@@ -25,6 +25,14 @@ public class SelectionGrid extends Rectangle {
         rand = new Random();
         showShips = false;
 
+    }
+
+    private void createMarkerGrid() {
+        for(int x = 0; x < GRID_WIDTH; x++){
+            for(int y = 0; y < GRID_HEIGHT; y++){
+                markers[x][y] = new Marker(position.x + x * CELL_SIZE, position.y + y * CELL_SIZE, CELL_SIZE, CELL_SIZE );
+            }
+        }
     }
 
     public void paint(GraphicsContext gc){
@@ -136,13 +144,7 @@ public class SelectionGrid extends Rectangle {
         }
     }
 
-    private void createMarkerGrid() {
-        for(int x = 0; x < GRID_WIDTH; x++){
-            for(int y = 0; y < GRID_HEIGHT; y++){
-                markers[x][y] = new Marker(position.x + x * CELL_SIZE, position.y + y * CELL_SIZE, CELL_SIZE, CELL_SIZE );
-            }
-        }
-    }
+
 
     public void populateShips(){
         ships.clear();

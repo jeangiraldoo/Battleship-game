@@ -15,7 +15,7 @@ public class GamePanel extends Pane {
     public enum GameState { PlacingShips, FiringShots, GameOver }
 
     private StatusPanel statusPanel;
-    private SelectionGrid computer;
+    private SelectionGrid computer; // grid the player sees and attacks
     private SelectionGrid player;
     private BattleshipBot aiController;
     private Ship placingShip;
@@ -28,11 +28,11 @@ public class GamePanel extends Pane {
 
     public GamePanel(int aiChoice) {
         computer = new SelectionGrid(0, 0);
+        statusPanel = new StatusPanel(new Position(0, computer.getHeight() + 1), computer.getWidth(), 49);
         player = new SelectionGrid(0, computer.getHeight() + 50);
         setStyle("-fx-background-color: #2A88A3;");
-        setPrefSize(computer.getWidth(), player.getPosition().y + player.getHeight());
 
-        canvas = new Canvas(500, 500);
+        canvas = new Canvas(500, computer.getHeight() + player.getHeight() + statusPanel.getHeight());
         getChildren().add(canvas);
 
         addEventHandler(MouseEvent.MOUSE_RELEASED, new MouseReleasedHandler());
@@ -42,10 +42,10 @@ public class GamePanel extends Pane {
             aiController = new SimpleRandomIA(player);
         }
 
-        //statusPanel = new StatusPanel(new Position(0, computer.getHeight() + 1), computer.getWidth(), 49);
+
         //restart();
         System.out.println("Canvas width: " + canvas.getWidth() + ", height: " + canvas.getHeight());
-        //draw();
+        draw();
 
     }
 

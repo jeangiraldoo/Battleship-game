@@ -2,13 +2,10 @@ package com.example.battleship;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Game extends Application {
+public class Main extends Application {
     private GamePanel gamePanel;
 
     public static void main(String[] args) {
