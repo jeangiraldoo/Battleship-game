@@ -26,16 +26,18 @@ public class Ship {
 
     public void paint(GraphicsContext gc) {
         if (shipPlacementColour == ShipPlacementColour.Placed) {
-            gc.setFill(destroyedSections >= segments ? Color.RED : Color.DARKGRAY);
+            gc.setFill(isDestroyed() ? Color.BLUE : Color.DARKGRAY);
         } else {
             gc.setFill(shipPlacementColour == ShipPlacementColour.Valid ? Color.GREEN : Color.RED);
         }
+
         if (isSideWays) {
             paintHorizontal(gc);
         } else {
             paintVertical(gc);
         }
     }
+
 
     public void setShipPlacementColour(ShipPlacementColour shipPlacementColour) {
         this.shipPlacementColour = shipPlacementColour;
