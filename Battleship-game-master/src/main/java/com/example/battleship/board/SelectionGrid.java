@@ -49,6 +49,10 @@ public class SelectionGrid extends Rectangle {
         this.showShips = showShips;
     }
 
+    public boolean isShowingShips() {
+        return showShips;
+    }
+
     public void reset() {
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {

@@ -81,6 +81,8 @@ public class GamePanel extends Pane {
             updateShipPlacement(tempPlacingPosition);
         } else if (keyCode == KeyCode.D) {
             debugModeActive = !debugModeActive;
+        } else if (keyCode == KeyCode.S && gameState == GameState.PlacingShips) {
+            computer.setShowShips(!computer.isShowingShips());
         }
         draw();
     }
@@ -89,6 +91,7 @@ public class GamePanel extends Pane {
         computer.reset();
         player.reset();
         player.setShowShips(true);
+        computer.setShowShips(false);
         easyAI.reset();
         tempPlacingPosition = new Position(0, 0);
         placingShip = new Ship(new Position(0, 0), new Position(player.getPosition().x, player.getPosition().y), SelectionGrid.BOAT_SIZES[0], true);
