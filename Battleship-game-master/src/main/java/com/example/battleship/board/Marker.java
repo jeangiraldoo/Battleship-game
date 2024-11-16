@@ -24,12 +24,18 @@ public class Marker extends Rectangle implements Serializable {
         reset();
     }
 
+    /**
+     * Resets the marker to its default state.
+     */
     public void reset() {
         showMarker = false;
         shipAtMarker = null;
 
     }
 
+    /**
+     * Marks a square.
+     */
     public void mark() {
         if (!showMarker && isShip()) {
             shipAtMarker.destroySection();
@@ -37,22 +43,42 @@ public class Marker extends Rectangle implements Serializable {
         showMarker = true;
     }
 
+    /**
+     * Returns if the marker has a ship on it
+     * @return True or False
+     */
     public boolean isShip() {
         return shipAtMarker != null;
     }
 
+    /**
+     * Retuns if the marker is painted or not.
+     * @return showMarker
+     */
     public boolean isMarked() {
         return showMarker;
     }
 
+    /**
+     * Relate a ship to the marker.
+     * @param ship Ship related to the marker.
+     */
     public void setAsShip(Ship ship) {
         this.shipAtMarker = ship;
     }
 
+    /**
+     * Returns the ship placed on top of the marker.
+     * @return ship.
+     */
     public Ship getAssociatedShip() {
         return shipAtMarker;
     }
 
+    /**
+     * Paints a square on the board.
+     * @param gc
+     */
     public void paint(GraphicsContext gc) {
         if (!showMarker) return;
         if (isShip()) {

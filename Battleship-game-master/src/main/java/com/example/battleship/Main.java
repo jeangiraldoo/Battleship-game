@@ -42,6 +42,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Asks the user for their name and returns it.
+     * @return user name.
+     */
     private String getPlayerNameFromUser() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Nombre del Jugador");
@@ -51,7 +55,11 @@ public class Main extends Application {
         Optional<String> result = dialog.showAndWait();
         return result.orElse("defaultPlayerName");
     }
-
+    /**
+     * Starts the game after asking the user for their name.
+     * @param primaryStage The stage used for the UI.
+     * @param playerName The name of the user.
+     */
     private void startGame(Stage primaryStage, String playerName) {
         Scene gameScene = new Scene(new Pane(gamePanel), 550, 655);
         gameScene.setOnKeyPressed(event -> gamePanel.handleInput(event.getCode()));

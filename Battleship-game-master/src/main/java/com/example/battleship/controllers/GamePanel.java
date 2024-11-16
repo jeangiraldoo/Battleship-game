@@ -51,7 +51,9 @@ public class GamePanel extends Pane {
         draw();
     }
 
-
+    /**
+     * Event handler for mouse clicks
+     */
     private class MouseReleasedHandler implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent event) {
@@ -65,6 +67,9 @@ public class GamePanel extends Pane {
         }
     }
 
+    /**
+     * Mouse handler for mouse events.
+     */
     private class MouseMovedHandler implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent event) {
@@ -74,6 +79,10 @@ public class GamePanel extends Pane {
         }
     }
 
+    /**
+     * Handles the keyboard input given by the user.
+     * @param keyCode
+     */
     public void handleInput(KeyCode keyCode) {
         if (keyCode == KeyCode.ESCAPE) {
             System.exit(1);
@@ -90,6 +99,9 @@ public class GamePanel extends Pane {
         draw();
     }
 
+    /**
+     * Rests all of the state of the game. This function is used when a new game is started.
+     */
     public void restart() {
         computer.reset();
         player.reset();
@@ -109,7 +121,10 @@ public class GamePanel extends Pane {
         draw();
     }
 
-
+    /**
+     * Attempts to add a ship to a specific position on the board.
+     * @param mousePosition Position of the mouse on the screen.
+     */
     private void tryPlaceShip(Position mousePosition) {
         Position targetPosition = player.getPositionInGrid(mousePosition.x, mousePosition.y);
         updateShipPlacement(targetPosition);
@@ -118,6 +133,10 @@ public class GamePanel extends Pane {
         }
     }
 
+    /**
+     * Places a ship at a specific square on the board.
+     * @param targetPosition Position to add the ship to.
+     */
     private void placeShip(Position targetPosition) {
         placingShip.setShipPlacementColour(Ship.ShipPlacementColour.Placed);
         player.placeShip(placingShip, tempPlacingPosition.x, tempPlacingPosition.y);
@@ -136,6 +155,10 @@ public class GamePanel extends Pane {
         saveGameState("defaultPlayerName");
     }
 
+    /**
+     * Fires at a specific square on the AI board
+     * @param mousePosition position of the mouse on the screen.
+     */
     private void tryFireAtComputer(Position mousePosition) {
         Position targetPosition = computer.getPositionInGrid(mousePosition.x, mousePosition.y);
         if (!computer.isPositionMarked(targetPosition)) {
@@ -151,6 +174,10 @@ public class GamePanel extends Pane {
         draw();
     }
 
+    /**
+     * Starts the turn of the player to do their movements
+     * @param targetPosition
+     */
     private void doPlayerTurn(Position targetPosition) {
         boolean hit = computer.markPosition(targetPosition);
         String hitMiss = hit ? "Hit" : "Missed";
@@ -167,6 +194,9 @@ public class GamePanel extends Pane {
         }
     }
 
+    /**
+     * Start the turn of the AI to do their moves
+     */
     private void doAITurn() {
         Position aiMove = easyAI.selectMove();
         boolean hit = player.markPosition(aiMove);
@@ -185,7 +215,10 @@ public class GamePanel extends Pane {
     }
 
 
-
+    /**
+     * Attempts to place a ship on the player board.
+     * @param mousePosition position of the mouse on the screen.
+     */
     private void tryMovePlacingShip(Position mousePosition) {
         if (player.isPositionInside(mousePosition)) {
             Position targetPos = player.getPositionInGrid(mousePosition.x, mousePosition.y);
@@ -202,7 +235,10 @@ public class GamePanel extends Pane {
         draw();
     }
 
-
+    /**
+     * Updates the orientation of the ship being placed.
+     * @param targetPos Position of the new ship.
+     */
     private void updateShipPlacement(Position targetPos) {
         if (placingShip.isSideWays()) {
             targetPos.x = Math.min(targetPos.x, SelectionGrid.GRID_WIDTH - placingShip.getSegments());
@@ -225,7 +261,9 @@ public class GamePanel extends Pane {
         }
     }
 
-
+    /**
+     * Draws the game view.
+     */
     private void draw() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -251,6 +289,10 @@ public class GamePanel extends Pane {
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+     * Serializes the current game state into the .dat file.
+     * @param playerName Name of the player
+     */
     public void saveGameState(String playerName) {
         this.playerName = playerName;
         GameState gameState = new GameState();
@@ -274,6 +316,9 @@ public class GamePanel extends Pane {
         }
     }
 
+    /**
+     * Deserializes the game state from the .dat file.
+     */
     public void loadGameState() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("saved_game.dat"))) {
             GameState gameState = (GameState) ois.readObject();
@@ -309,7 +354,10 @@ public class GamePanel extends Pane {
         }
     }
 
-
+    /**
+     * Returns the name of the player.
+     * @return playerName
+     */
     public String getPlayerName() {
         return playerName; // Método para obtener el nombre del jugador
     }

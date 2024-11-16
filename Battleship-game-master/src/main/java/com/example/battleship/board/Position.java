@@ -31,20 +31,38 @@ public class Position implements Serializable {
         this.y = positionToCopy.y;
     }
 
+    /**
+     * Sets the coordinates.
+     * @param x coordinate x.
+     * @param y coordinate y.
+     */
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Increase current x and y coordinates by a given amount.
+     * @param otherPosition number to add to the current coordinates.
+     */
     public void add(Position otherPosition) {
         this.x += otherPosition.x;
         this.y += otherPosition.y;
     }
 
+    /**
+     * Return distance between one position and another.
+     * @param otherPosition
+     * @return distance
+     */
     public double distanceTo(Position otherPosition) {
         return Math.sqrt(Math.pow(this.x - otherPosition.x, 2) + Math.pow(this.y - otherPosition.y, 2));
     }
 
+    /**
+     * Multiply the current x and y coordinates by a given amount.
+     * @param amount number to multiply the coordinates with.
+     */
     public void multiply(int amount){
         this.x *= amount;
         this.y *= amount;

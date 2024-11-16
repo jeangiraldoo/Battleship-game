@@ -29,6 +29,10 @@ public class Ship implements Serializable {
         shipPlacementColour = ShipPlacementColour.Placed;
     }
 
+    /**
+     * Paints the ship on the board.
+     * @param gc
+     */
     public void paint(GraphicsContext gc) {
         if (shipPlacementColour == ShipPlacementColour.Placed) {
             gc.setFill(isDestroyed() ? Color.BLUE : Color.DARKGRAY);
@@ -43,10 +47,17 @@ public class Ship implements Serializable {
         }
     }
 
+    /**
+     * Sets the colour used when placing a ship.
+     * @param shipPlacementColour colour.
+     */
     public void setShipPlacementColour(ShipPlacementColour shipPlacementColour) {
         this.shipPlacementColour = shipPlacementColour;
     }
 
+    /**
+     * Toogles the isSideways variable to True and False.
+     */
     public void toggleSideways() {
         isSideWays = !isSideWays;
     }
@@ -55,20 +66,37 @@ public class Ship implements Serializable {
         destroyedSections++;
     }
 
+    /**
+     * Returns if the ship is destroyed or not.
+     * @return bool
+     */
     public boolean isDestroyed() {
         boolean value = destroyedSections >= segments;
         return value;
     }
 
+    /**
+     * Sets the position to draw the ship on.
+     * @param gridPosition
+     * @param drawPosition
+     */
     public void setDrawPosition(Position gridPosition, Position drawPosition) {
         this.gridPosition = gridPosition;
         this.drawPosition = drawPosition;
     }
 
+    /**
+     * Returns if the ship is sideways or not.
+     * @return isSideWays
+     */
     public boolean isSideWays() {
         return isSideWays;
     }
 
+    /**
+     * Returns a list with all of the positions that already have ships.
+     * @return list of coordinates.
+     */
     public List<Position> getOccupiedCoordinates() {
         List<Position> coordinates = new ArrayList<>();
         if (isSideWays) {
@@ -87,6 +115,9 @@ public class Ship implements Serializable {
         return segments;
     }
 
+    /**
+     * Draw the ship vertically.
+     */
     public void paintVertical(GraphicsContext gc) {
         int boatWidth = (int) (30 * 0.8);
         int boatLeftX = drawPosition.x + 30 / 2 - boatWidth / 2;
@@ -94,6 +125,10 @@ public class Ship implements Serializable {
         gc.fillRect(boatLeftX, drawPosition.y + 30, boatWidth, 30 * (segments - 1.2));
     }
 
+    /**
+     * Draw the ship horizontally
+     * @param gc
+     */
     public void paintHorizontal(GraphicsContext gc) {
         int boatWidth = (int) (30 * 0.8);
         int boatTopY = drawPosition.y + 30 / 2 - boatWidth / 2;

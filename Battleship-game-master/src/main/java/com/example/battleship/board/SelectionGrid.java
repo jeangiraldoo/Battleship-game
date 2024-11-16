@@ -29,6 +29,9 @@ public class SelectionGrid extends Rectangle implements Serializable {
         showShips = false;
     }
 
+    /**
+     * Creates a grid with a marker in each cell
+     */
     private void createMarkerGrid() {
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {
@@ -37,6 +40,10 @@ public class SelectionGrid extends Rectangle implements Serializable {
         }
     }
 
+    /**
+     * Paints the grid
+     * @param gc
+     */
     public void paint(GraphicsContext gc) {
         for (Ship ship : ships) {
             if (showShips || ship.isDestroyed()) {
@@ -47,14 +54,25 @@ public class SelectionGrid extends Rectangle implements Serializable {
         drawGrid(gc);
     }
 
+    /**
+     * Sets wether or not ships are going to be shown.
+     * @param showShips boolean that indicates if the ships shall be shown or not.
+     */
     public void setShowShips(boolean showShips) {
         this.showShips = showShips;
     }
 
+    /**
+     * Returns if the ships are being shown or not.
+     * @return boolean
+     */
     public boolean isShowingShips() {
         return showShips;
     }
 
+    /**
+     * Resets the grid to its default state
+     */
     public void reset() {
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {
@@ -66,6 +84,11 @@ public class SelectionGrid extends Rectangle implements Serializable {
         allShipsDestroyed = false;
     }
 
+    /**
+     * Returns if there is a ship at a specific position or not.
+     * @param pos position to check.
+     * @return boolean
+     */
     public boolean markPosition(Position pos) {
         Marker marker = markers[pos.x][pos.y];
         if (marker.isMarked()) {
@@ -96,10 +119,21 @@ public class SelectionGrid extends Rectangle implements Serializable {
         return markers[pos.x][pos.y].isMarked();
     }
 
+    /**
+     * Returns a marker object at a specified position
+     * @param pos position
+     * @return marker object
+     */
     public Marker getMarkerAtPosition(Position pos) {
         return markers[pos.x][pos.y];
     }
 
+    /**
+     * Returns a position object that representes a set of coordinates
+     * @param mouseX position of the mouse on the screen on the x axis.
+     * @param mouseY position of the mouse on the screen on the y axis.
+     * @return position object
+     */
     public Position getPositionInGrid(int mouseX, int mouseY) {
         if (!isPositionInside(new Position(mouseX, mouseY))) {
             return new Position(-1, -1);
@@ -111,6 +145,14 @@ public class SelectionGrid extends Rectangle implements Serializable {
         return new Position(gridX, gridY);
     }
 
+    /**
+     * Validates if a ship can be placed at a specific position
+     * @param gridX coordinate x
+     * @param gridY coordinate y
+     * @param segments segments or blocks the ship takes
+     * @param sideways if the ship is sideways or not
+     * @return
+     */
     public boolean canPlaceShipAt(int gridX, int gridY, int segments, boolean sideways) {
         // Generar una lista de todas las celdas que el barco ocuparía
         List<Position> occupiedCells = new ArrayList<>();
@@ -142,6 +184,10 @@ public class SelectionGrid extends Rectangle implements Serializable {
         return true;
     }
 
+    /**
+     * Draws the markers inside each cell of the grid on the canvas.
+     * @param gc
+     */
     private void drawMarkers(GraphicsContext gc) {
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {
@@ -150,6 +196,10 @@ public class SelectionGrid extends Rectangle implements Serializable {
         }
     }
 
+    /**
+     * Draws the board grid on the canvas
+     * @param gc
+     */
     private void drawGrid(GraphicsContext gc) {
         gc.setStroke(Color.BLACK);
 
@@ -170,6 +220,9 @@ public class SelectionGrid extends Rectangle implements Serializable {
         }
     }
 
+    /**
+     * Populates the boards with ships
+     */
     public void populateShips() {
         ships.clear();
         for (int i = 0; i < BOAT_SIZES.length; i++) {
@@ -183,12 +236,25 @@ public class SelectionGrid extends Rectangle implements Serializable {
         }
     }
 
+    /**
+     * Places a ship sidebays on the board.
+     * @param gridX coordinate x.
+     * @param gridY coordinate y.
+     * @param segments how many segments or blocks the ship takes.
+     * @param sideways if the ship must go sideways.
+     */
     private void placeShip(int gridX, int gridY, int segments, boolean sideways) {
         placeShip(new Ship(new Position(gridX, gridY),
                 new Position(position.x + gridX * CELL_SIZE, position.y + gridY * CELL_SIZE),
                 segments, sideways), gridX, gridY);
     }
 
+    /**
+     * Places a ship on a specific coordinate on the board.
+     * @param ship ship object.
+     * @param gridX coordinate x.
+     * @param gridY coordinate y.
+     */
     public void placeShip(Ship ship, int gridX, int gridY) {
         ships.add(ship);
         if (ship.isSideWays()) {
@@ -207,6 +273,10 @@ public class SelectionGrid extends Rectangle implements Serializable {
         return ships;
     }
 
+    /**
+     * Sets ships at specified coordinates.
+     * @param ships list of ships
+     */
     public void setShips(List<Ship> ships) {
         this.ships = ships;
         for (Ship ship : ships) {
@@ -217,6 +287,11 @@ public class SelectionGrid extends Rectangle implements Serializable {
     }
 
     // Nuevo método para obtener los marcadores
+
+    /**
+     * Returns the available markers
+     * @return boolean matrix of marker states
+     */
     public boolean[][] getMarkers() {
         boolean[][] markerStates = new boolean[GRID_WIDTH][GRID_HEIGHT];
         for (int x = 0; x < GRID_WIDTH; x++) {
@@ -227,6 +302,11 @@ public class SelectionGrid extends Rectangle implements Serializable {
         return markerStates;
     }
 
+    /**
+     * Sets a marker to every position in the board.
+     * @param markerStates current states of the markers
+     * @param gc
+     */
     public void setMarkers(boolean[][] markerStates, GraphicsContext gc) {
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {
